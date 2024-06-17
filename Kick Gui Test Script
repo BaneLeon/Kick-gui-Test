@@ -1,0 +1,22 @@
+local kickButton = script.Parent
+local plrNameBox = script.Parent.Parent.playerName
+local reasonBox = script.Parent.Parent.Reasson
+local players = game.Players
+
+local playerTable = {}
+
+kickButton.MouseButton1Down:Connect(function()
+   table.clear(playerTable)
+   for i, v in players:GetPlayers() do
+      table.insert(playerTable, string.lower(v.Name))
+   end
+
+   local plr = players:FindFirstChild(string.lower(plrNameBox.Text))
+
+   if table.find(playerTable, plr.Name) then
+	  players:WaitForChild(plrNameBox.Text):Kick(reasonBox.Text)
+	  game.SoundService.menuClick:Play()
+   else
+      print("Cannot find player")
+   end
+end)
